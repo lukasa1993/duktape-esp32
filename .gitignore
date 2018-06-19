@@ -4,3 +4,4 @@ build/
 sdkconfig.old
 *.img
 components/*
+.idea/
