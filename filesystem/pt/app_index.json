@@ -1,0 +1,8 @@
+{
+  "apps":   {
+    "default":     "general.js",
+    "boiler":      "boiler.js",
+    "room_sensor": "room_sensor.js"
+  },
+  "active": "default"
+}

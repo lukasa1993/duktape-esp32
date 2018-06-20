@@ -631,6 +631,7 @@ static duk_ret_t js_wifi_scan(duk_context *ctx) {
 	conf.bssid       = NULL;
 	conf.ssid        = NULL;
 	conf.show_hidden = 1;
+
 	ESP_ERROR_CHECK(esp_wifi_scan_start(&conf, 0 /* don't block */));
 
 	LOGD("<< js_wifi_scan");
@@ -686,6 +687,7 @@ static duk_ret_t js_wifi_setTimeServer(duk_context *ctx) {
 
 static duk_ret_t js_wifi_start(duk_context *ctx) {
 	LOGD(">> js_wifi_start");
+    ESP_ERROR_CHECK( esp_wifi_set_mode (WIFI_MODE_APSTA) );
 	esp_err_t errRc = esp_wifi_start();
 	if (errRc != ESP_OK) {
 		duk_error(ctx, 1, "js_wifi_start rc=%s", esp32_errToString(errRc));
