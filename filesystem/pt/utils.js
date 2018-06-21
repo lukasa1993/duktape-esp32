@@ -1,5 +1,7 @@
 /* globals require, FS, Buffer, log, DUKF, JSON, module*/
-var FS = require('pt/libs/fs');
+var FS        = require('pt/libs/fs');
+var http      = require('pt/libs/http');
+var urlParser = require('pt/libs/url');
 
 var utils = {
   root_path:      '/spiffs/',
@@ -35,7 +37,7 @@ utils.listRoot = function () {
   return FS.spiffsDir();
 };
 
-utils.setActiveApp = function (app_name) {
+utils.setActiveApp   = function (app_name) {
   var app_index = this.readFile(this.app_index_path);
   app_index     = JSON.parse(app_index);
 
@@ -47,6 +49,25 @@ utils.setActiveApp = function (app_name) {
   app_index.active = app_name;
 
   this.saveFile(this.app_index_path, JSON.stringify(app_index));
+};
+utils.saveRemoteFile = function (url, path) {
+  var self      = this;
+  var parsedURL = urlParser.parse(url);
+
+  http.request({
+    host: parsedURL.hostname,
+    port: parsedURL.port,
+    path: parsedURL.pathname
+  }, function (response) {
+    let postBody = '';
+    response.on('data', function (data) {
+      postBody += data;
+
+    });
+    response.on('end', function () {
+      self.saveFile(path, postBody);
+    });
+  });
 };
 
 module.exports = utils;

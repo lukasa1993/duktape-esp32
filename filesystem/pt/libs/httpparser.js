@@ -76,7 +76,7 @@
  * 
  */
 /* globals require, log, module */
-var Stream = require("stream.js");
+var Stream = require("pt/libs/stream.js");
 
 
 /**

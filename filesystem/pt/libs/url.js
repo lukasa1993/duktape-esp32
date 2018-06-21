@@ -46,10 +46,10 @@ module.exports = {
 		};
 		var hostPortParts = retObj.host.split(":");
 		retObj.hostname = hostPortParts[0];
-		if (hostPortParts.length == 1) {
+		if (hostPortParts.length === 1) {
 			retObj.port = "80";
 		} else {
-			retObj.port = hostPortParts[1];
+			retObj.port = parseInt(hostPortParts[1], 10);
 		}
 		urlString.replace(
 		   queryRegexp,

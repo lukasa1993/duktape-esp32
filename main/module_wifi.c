@@ -632,6 +632,8 @@ static duk_ret_t js_wifi_scan(duk_context *ctx) {
 	conf.ssid        = NULL;
 	conf.show_hidden = 1;
 
+  	ESP_ERROR_CHECK( esp_wifi_set_mode (WIFI_MODE_APSTA) );
+  	ESP_ERROR_CHECK( esp_wifi_start() ); 
 	ESP_ERROR_CHECK(esp_wifi_scan_start(&conf, 0 /* don't block */));
 
 	LOGD("<< js_wifi_scan");

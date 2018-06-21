@@ -6,9 +6,9 @@
 /* globals require, log, module */
 /* exported http */
 
-var net = require("net");
-var Stream = require("stream");
-var HTTPParser = require("httpparser");
+var net = require("pt/libs/net");
+var Stream = require("pt/libs/stream");
+var HTTPParser = require("pt/libs/httpparser");
 
 
 /**
@@ -53,7 +53,7 @@ var http = {
 			method = "GET";
 		}
 		
-		if (method !== "GET" && method !== "POST" && method != "PUT") {
+		if (method !== "GET" && method !== "POST" && method !== "PUT") {
 			log("http.request: Unknown method: " + method);
 			return;
 		}
@@ -105,7 +105,7 @@ var http = {
 			var requestMessage = method +" " + path + " HTTP/1.1\r\n" +
 				"Host: " + host + ":" + port + "\r\n";
 			sock.write(requestMessage); // Send the message to the HTTP server.
-			if (options.headers != undefined) {
+			if (options.headers !== undefined) {
 				for (var name in options.headers) {
 					// Skip headers that we must NOT add to the headers.
 					if (name === "Host") {
@@ -176,7 +176,7 @@ var http = {
 			httpResponseStream.writer.writeHead = function(statusCode, param1, param2) {
 				var statusMessage;
 				var headers;
-				if (typeof param1 == "string") {
+				if (typeof param1 === "string") {
 					statusMessage = param1;
 					headers = param2;
 				} else {
